@@ -17,13 +17,18 @@ function defEv(event) {
   let step = Number(ref.StepDelay.value);
 
   for (let i = 1; i <= ref.amountDel.value; i += 1) {
-    delay += step;
-    createPromise(i, delay)
+    createPromise(i, delay).then(() => {
+      Notiflix.Notify.success(`✅ Fulfilled promise ${i} in ${delay}ms`);
+    })
+      .catch(() => {
+        Notiflix.Notify.failure(`❌ Rejected promise ${i} in ${delay}ms`);
+      });
+     delay += step;
   }
 
   function createPromise(i, delay) {
   
-    const promise = new Promise((resolve, reject) => {
+    return new Promise((resolve, reject) => {
       const shouldResolve = Math.random() > 0.3;
       setTimeout(() => {
         if (shouldResolve) {
@@ -33,11 +38,6 @@ function defEv(event) {
         }
       }, delay);
     });
-    promise.then(() => {
-      Notiflix.Notify.success(`✅ Fulfilled promise ${i} in ${delay}ms`);
-    })
-      .catch(() => {
-        Notiflix.Notify.failure(`❌ Rejected promise ${i} in ${delay}ms`);
-      });
+   
   }
 }

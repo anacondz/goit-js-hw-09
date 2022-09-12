@@ -2,6 +2,7 @@ import flatpickr from "flatpickr";
 import "flatpickr/dist/flatpickr.min.css";
 
 const refs = {
+  inputDate: document.querySelector('input'),
      btnStart : document.querySelector('button[data-start]'),
      pick : document.querySelector('#datetime-picker'),
      days : document.querySelector('[data-days]'),
@@ -31,6 +32,7 @@ refs.label.forEach(e => {
  
 });
 
+
 const options = {
   enableTime: true,
   time_24hr: true,
@@ -51,12 +53,13 @@ const options = {
           const newTime = Date.now();
           this.isActive = true;
           const newDelta = selectedDates[0].getTime() - newTime;
+           refs.pick.disabled = true;
+            refs.btnStart.disabled = true;
           const ReverseTimer = convertMs(newDelta);
           refs.seconds.textContent = addLeadingZero(ReverseTimer.seconds);
           refs.minutes.textContent = addLeadingZero(ReverseTimer.minutes);
           refs.hours.textContent = addLeadingZero(ReverseTimer.hours);
           refs.days.textContent = addLeadingZero(ReverseTimer.days);
-          console.log(newDelta);
           if (newDelta <= 1000) {
             clearInterval(timer);
 
@@ -90,3 +93,4 @@ function convertMs(ms) {
 function addLeadingZero(value) {
   return String(value).padStart(2, '0');
 }
+

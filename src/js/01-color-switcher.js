@@ -2,9 +2,9 @@ function getRandomHexColor() {
   return `#${Math.floor(Math.random() * 16777215).toString(16)}`;
 }
 
-    bodyEl = document.querySelector('body');
-    bStart = document.querySelector('[data-start]');
-    bStop = document.querySelector('[data-stop]');
+   const bodyEl = document.querySelector('body');
+   const bStart = document.querySelector('[data-start]');
+   const bStop = document.querySelector('[data-stop]');
 
 let timerId = null;
 

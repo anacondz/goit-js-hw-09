@@ -17,26 +17,26 @@ function defEv(event) {
   let step = Number(ref.stepDelay.value);
   let amount = Number(ref.amountDel.value);
 
-  for (let position = 1; position <= amount; position += 1) {
-    createPromise(position, delay)
+  for (let i = 1; i <= amount; i += 1) {
+    createPromise(i, delay)
       .then(() => {
-      Notiflix.Notify.success(`✅ Fulfilled promise ${position} in ${delay}ms`);
-    })
+        Notiflix.Notify.success(`✅ Fulfilled promise ${i} in ${delay}ms`);
+      })
       .catch(() => {
-        Notiflix.Notify.failure(`❌ Rejected promise ${position} in ${delay}ms`);
+        Notiflix.Notify.failure(`❌ Rejected promise ${i} in ${delay}ms`);
       });
-   delay += step;
-  } 
+    delay += step;
+  }
 }
 
-  function createPromise(position, delay) {
+function createPromise(position, delay ) {
     return new Promise((resolve, reject) => {
       const shouldResolve = Math.random() > 0.3;
       setTimeout(() => {
         if (shouldResolve) {
-          resolve();
+          resolve({ position, delay });
         } else {
-          reject();
+          reject({ position, delay });
         }
       }, delay);
     });

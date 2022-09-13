@@ -47,14 +47,12 @@ const options = {
       refs.btnStart.disabled = false;
      
       refs.btnStart.addEventListener('click', () => {
-
-        const timer = setInterval(() => {
-          
+          refs.pick.disabled = true;
+          refs.btnStart.disabled = true;
+          const timer = setInterval(() => {
           const newTime = Date.now();
           this.isActive = true;
           const newDelta = selectedDates[0].getTime() - newTime;
-           refs.pick.disabled = true;
-            refs.btnStart.disabled = true;
           const ReverseTimer = convertMs(newDelta);
           refs.seconds.textContent = addLeadingZero(ReverseTimer.seconds);
           refs.minutes.textContent = addLeadingZero(ReverseTimer.minutes);

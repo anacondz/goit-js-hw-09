@@ -19,24 +19,24 @@ function defEv(event) {
 
   for (let i = 1; i <= amount; i += 1) {
     createPromise(i, delay)
-      .then(() => {
+      .then(({i, delay}) => {
         Notiflix.Notify.success(`✅ Fulfilled promise ${i} in ${delay}ms`);
       })
-      .catch(() => {
+      .catch(({i,delay}) => {
         Notiflix.Notify.failure(`❌ Rejected promise ${i} in ${delay}ms`);
       });
     delay += step;
   }
 }
 
-function createPromise(position, delay ) {
+function createPromise(i, delay) {
     return new Promise((resolve, reject) => {
       const shouldResolve = Math.random() > 0.3;
       setTimeout(() => {
         if (shouldResolve) {
-          resolve({ position, delay });
+          resolve({i, delay});
         } else {
-          reject({ position, delay });
+          reject({i, delay});
         }
       }, delay);
     });
